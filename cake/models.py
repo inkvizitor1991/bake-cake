@@ -110,8 +110,8 @@ class Cake(models.Model):
     words = models.CharField('текст слов на торте', max_length=200)
 
     class Meta:
-        verbose_name = 'декор'
-        verbose_name_plural = 'декоры'
+        verbose_name = 'торт'
+        verbose_name_plural = 'торты'
 
     def __str__(self):
         return str(self.id)
