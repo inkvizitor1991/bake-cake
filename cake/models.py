@@ -128,7 +128,7 @@ class Client(models.Model):
         verbose_name_plural = 'клиенты'
 
     def __str__(self):
-        return self.phone
+        return str(self.phone)
 
 
 class Delivery(models.Model):
@@ -160,4 +160,4 @@ class Order(models.Model):
         verbose_name_plural = 'заказы'
 
     def __str__(self):
-        return f'{self.price} - {self.client}'
+        return f'Цена: {self.price} рублей. Телефон: {self.client}'
