@@ -1,0 +1,466 @@
+[
+  {
+    "model": "cake.levels",
+    "pk": 1,
+    "fields": {
+      "quantity": 1,
+      "price": 400
+    }
+  },
+  {
+    "model": "cake.levels",
+    "pk": 2,
+    "fields": {
+      "quantity": 2,
+      "price": 750
+    }
+  },
+  {
+    "model": "cake.levels",
+    "pk": 3,
+    "fields": {
+      "quantity": 3,
+      "price": 1100
+    }
+  },
+  {
+    "model": "cake.form",
+    "pk": 1,
+    "fields": {
+      "figure": "Круг",
+      "price": 600
+    }
+  },
+  {
+    "model": "cake.form",
+    "pk": 2,
+    "fields": {
+      "figure": "Квадрат",
+      "price": 400
+    }
+  },
+  {
+    "model": "cake.form",
+    "pk": 3,
+    "fields": {
+      "figure": "Прямоугольник",
+      "price": 1000
+    }
+  },
+  {
+    "model": "cake.topping",
+    "pk": 1,
+    "fields": {
+      "name": "Белый соус",
+      "price": 200
+    }
+  },
+  {
+    "model": "cake.topping",
+    "pk": 2,
+    "fields": {
+      "name": "Карамельный",
+      "price": 180
+    }
+  },
+  {
+    "model": "cake.topping",
+    "pk": 3,
+    "fields": {
+      "name": "Кленовый",
+      "price": 200
+    }
+  },
+  {
+    "model": "cake.topping",
+    "pk": 4,
+    "fields": {
+      "name": "Черничный",
+      "price": 300
+    }
+  },
+  {
+    "model": "cake.topping",
+    "pk": 5,
+    "fields": {
+      "name": "Молочный шоколад",
+      "price": 350
+    }
+  },
+  {
+    "model": "cake.topping",
+    "pk": 6,
+    "fields": {
+      "name": "Клубничный",
+      "price": 200
+    }
+  },
+  {
+    "model": "cake.berries",
+    "pk": 1,
+    "fields": {
+      "name": "Ежевика",
+      "price": 400
+    }
+  },
+  {
+    "model": "cake.berries",
+    "pk": 2,
+    "fields": {
+      "name": "Малина",
+      "price": 300
+    }
+  },
+  {
+    "model": "cake.berries",
+    "pk": 3,
+    "fields": {
+      "name": "Голубика",
+      "price": 450
+    }
+  },
+  {
+    "model": "cake.berries",
+    "pk": 4,
+    "fields": {
+      "name": "Клубника",
+      "price": 500
+    }
+  },
+  {
+    "model": "cake.decor",
+    "pk": 1,
+    "fields": {
+      "name": "Фисташки",
+      "price": 300
+    }
+  },
+  {
+    "model": "cake.decor",
+    "pk": 2,
+    "fields": {
+      "name": "Безе",
+      "price": 400
+    }
+  },
+  {
+    "model": "cake.decor",
+    "pk": 3,
+    "fields": {
+      "name": "Фундук",
+      "price": 350
+    }
+  },
+  {
+    "model": "cake.decor",
+    "pk": 4,
+    "fields": {
+      "name": "Пекан",
+      "price": 300
+    }
+  },
+  {
+    "model": "cake.decor",
+    "pk": 5,
+    "fields": {
+      "name": "Маршмеллоу",
+      "price": 200
+    }
+  },
+  {
+    "model": "cake.decor",
+    "pk": 6,
+    "fields": {
+      "name": "Марципан",
+      "price": 280
+    }
+  },
+  {
+    "model": "cake.cake",
+    "pk": 1,
+    "fields": {
+      "levels": 1,
+      "form": 2,
+      "topping": 4,
+      "berries": 3,
+      "decor": 6,
+      "words": "Счастья, добра!"
+    }
+  },
+  {
+    "model": "cake.cake",
+    "pk": 2,
+    "fields": {
+      "levels": 3,
+      "form": 2,
+      "topping": 3,
+      "berries": 2,
+      "decor": 1,
+      "words": "С днем рождения!"
+    }
+  },
+  {
+    "model": "cake.cake",
+    "pk": 3,
+    "fields": {
+      "levels": 2,
+      "form": 3,
+      "topping": 2,
+      "berries": 1,
+      "decor": 1,
+      "words": "С празником!"
+    }
+  },
+  {
+    "model": "cake.cake",
+    "pk": 4,
+    "fields": {
+      "levels": 1,
+      "form": 3,
+      "topping": 4,
+      "berries": 2,
+      "decor": 2,
+      "words": "От души поздравляю!"
+    }
+  },
+  {
+    "model": "cake.cake",
+    "pk": 5,
+    "fields": {
+      "levels": 2,
+      "form": 1,
+      "topping": 1,
+      "berries": 1,
+      "decor": 1,
+      "words": "Лучшему папе!"
+    }
+  },
+  {
+    "model": "cake.cake",
+    "pk": 6,
+    "fields": {
+      "levels": 2,
+      "form": 2,
+      "topping": 2,
+      "berries": 2,
+      "decor": 2,
+      "words": "Лучшей маме!"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "username": "user1",
+      "password": "password",
+      "email": "user1@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "username": "user2",
+      "password": "password",
+      "email": "user2@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "username": "user3",
+      "password": "password",
+      "email": "user3@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "username": "user4",
+      "password": "password",
+      "email": "user4@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "username": "user5",
+      "password": "password",
+      "email": "user5@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "username": "user6",
+      "password": "password",
+      "email": "user6@mail.com"
+    }
+  },
+  {
+    "model": "cake.client",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "phone": "+79005556677"
+    }
+  },
+  {
+    "model": "cake.client",
+    "pk": 2,
+    "fields": {
+      "user": 3,
+      "phone": "+79005557722"
+    }
+  },
+  {
+    "model": "cake.client",
+    "pk": 3,
+    "fields": {
+      "user": 4,
+      "phone": "+79005558833"
+    }
+  },
+  {
+    "model": "cake.client",
+    "pk": 4,
+    "fields": {
+      "user": 5,
+      "phone": "+79005559944"
+    }
+  },
+  {
+    "model": "cake.client",
+    "pk": 5,
+    "fields": {
+      "user": 6,
+      "phone": "+79005550055"
+    }
+  },
+  {
+    "model": "cake.client",
+    "pk": 6,
+    "fields": {
+      "user": 7,
+      "phone": "+79005551166"
+    }
+  },
+  {
+    "model": "cake.delivery",
+    "pk": 1,
+    "fields": {
+      "address": "Москва, Чехова 15-2",
+      "deliver_at": "2022-04-20T13:20:30+03:00",
+      "comment": "Как можно быстрее."
+    }
+  },
+  {
+    "model": "cake.delivery",
+    "pk": 2,
+    "fields": {
+      "address": "Москва, Ленина 17-4",
+      "deliver_at": "2022-04-20T13:20:30+03:00"
+    }
+  },
+  {
+    "model": "cake.delivery",
+    "pk": 3,
+    "fields": {
+      "address": "Москва, Воронцова 18-4",
+      "deliver_at": "2022-04-20T14:20:30+03:00",
+      "comment": "не наруште упаковку."
+    }
+  },
+  {
+    "model": "cake.delivery",
+    "pk": 4,
+    "fields": {
+      "address": "Москва, Проспект мира 13-4",
+      "deliver_at": "2022-04-20T13:25:30+03:00"
+    }
+  },
+  {
+    "model": "cake.delivery",
+    "pk": 5,
+    "fields": {
+      "address": "Москва, Донская дом19-4",
+      "deliver_at": "2022-04-20T13:23:30+03:00",
+      "comment": "Код домофона 2456."
+    }
+  },
+  {
+    "model": "cake.delivery",
+    "pk": 6,
+    "fields": {
+      "address": "Москва, Карла-Липнехта д.20кв.5",
+      "deliver_at": "2022-04-20T13:21:30+03:00"
+    }
+  },
+  {
+    "model": "cake.order",
+    "pk": 1,
+    "fields": {
+      "client": 1,
+      "cake": 1,
+      "price": 1500,
+      "delivery": 1,
+      "comment": "Если получится, вставьте 20 свечей сверху"
+    }
+  },
+  {
+    "model": "cake.order",
+    "pk": 2,
+    "fields": {
+      "client": 2,
+      "cake": 2,
+      "price": 1800,
+      "delivery": 2
+    }
+  },
+  {
+    "model": "cake.order",
+    "pk": 3,
+    "fields": {
+      "client": 3,
+      "cake": 3,
+      "price": 2500,
+      "delivery": 3,
+      "comment": "Бисквитной части побольше"
+    }
+  },
+  {
+    "model": "cake.order",
+    "pk": 4,
+    "fields": {
+      "client": 4,
+      "cake": 4,
+      "price": 4300,
+      "delivery": 4,
+      "comment": "Учтите аллергию на орехи. Надеемся будет вкусно."
+    }
+  },
+  {
+    "model": "cake.order",
+    "pk": 5,
+    "fields": {
+      "client": 5,
+      "cake": 5,
+      "price": 2300,
+      "delivery": 5
+    }
+  },
+  {
+    "model": "cake.order",
+    "pk": 6,
+    "fields": {
+      "client": 6,
+      "cake": 6,
+      "price": 1200,
+      "delivery": 6
+    }
+  }
+]
