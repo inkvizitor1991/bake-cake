@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load crispy_forms_tags %}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -26,41 +27,41 @@
 		<div class="collapse navbar-collapse justify-content-end" id="navbar">
 			<ul class="navbar-nav">
 				<li class="nav-item me-5">
-					<a class="nav-link fw-lighter cake_blue" href="#step3">Создать торт</a>
+					<a class="nav-link fw-lighter cake_blue" href="{% url 'base' %}#step3">Создать торт</a>
 				</li>
 				<li class="nav-item me-5">
-					<a class="nav-link fw-lighter cake_blue" href="#step2">Каталог</a>
+					<a class="nav-link fw-lighter cake_blue" href="{% url 'base' %}#step2">Каталог</a>
 				</li>
 				<li class="nav-item me-5">
-					<a class="nav-link fw-lighter cake_blue" href="#step4">Оплата и доставка</a>
+					<a class="nav-link fw-lighter cake_blue" href="{% url 'base' %}#step4">Оплата/доставка</a>
 				</li>
 				<li class="nav-item me-5">
-					<a class="nav-link fw-lighter cake_blue" href="#Contacts">Контакты</a>
+					<a class="nav-link fw-lighter cake_blue" href="{% url 'base' %}#Contacts">Контакты</a>
 				</li>
+				{% if not request.user.is_authenticated %}
+				<li class="nav-item me-5">
+					<a class="nav-link fw-lighter cake_blue" href="{% url 'login' %}" role="button">Авторизация</a>
+				</li>
+				<li class="nav-item me-5">
+					<a class="nav-link fw-lighter cake_blue" href="{% url 'registration' %}" role="button">Регистрация</a>
+				</li>
+				{% else %}
+				<li class="nav-item me-5">
+					<a class="nav-link fw-lighter cake_blue" href="{% url 'order' %}" role="button">Личный кабинет</a>
+				</li>
+				<li class="nav-item me-5">
+					<a class="nav-link fw-lighter cake_blue" href="{% url 'logout' %}" role="button">Выйти</a>
+				</li>
+				{% endif %}
 				<li class="nav-item d-block d-xl-flex flex-column align-items-end me-5">
 					<small class="fw-lighter text-decoration-none fs_12 cake_blue">8 (495) 000-00-00</small>
 					<small class="fw-lighter text-decoration-none fs_12 cake_blue">Пн - Вс 10:00—20:00</small>
 				</li>
-				<li class="nav-item d-flex align-items-center">
-					<a class="nav-link fw-lighter me-1 cake_blue position-relative" href="{% url 'order' %}">
-						<img src="{% static 'img/shopping-cart.svg' %}" alt="">
-						<!--метка на иконке, убрать класс d-none чтоб появилась-->
-						<span class="position-absolute translate-middle badge rounded-pill cake__bg_pink fs_8 d-none">1</span>
-					</a>
-					<a class="nav-link fw-lighter me-1 cake_blue position-relative" href="{% url 'order' %}" data-bs-toggle="modal">
-						<img src="{% static 'img/user.svg' %}" alt="">
-						<!--метка на иконке, убрать класс d-none чтоб появилась-->
-						<span class="position-absolute translate-middle badge rounded-pill cake__bg_pink fs_8 d-none">1</span>
-					</a>
-					<a class="nav-link fw-lighter cake_grey fs_12 d-none" href="#">
-						Ирина
-					</a>
-				</li>
 			</ul>
 		</div>
 	</nav>
-
 </header>
+{% block content %}
 <main>
 	<div class="container mt-header">
 		<aside class="modal fade" id="RegModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="RegModalLabel" aria-hidden="true">
@@ -383,7 +384,7 @@
 	</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+{% endblock content %}
 <script src="{% static 'js/index.js' %}"></script>
 <script src="{% static 'js/registration.js' %}"></script>
 </body>
