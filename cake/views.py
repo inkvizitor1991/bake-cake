@@ -28,13 +28,7 @@ class AccountViews(views.View):
 
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, username=request.user)
-        print(user.email)
-        # Client.objects.create(user=user, phone='+79819704333')
         phone = get_object_or_None(Client, user__username=str(user))
-        # all = Client.objects.all()
-        print(phone)
-        # print(all)
-        # print(client.phone)
         title = 'Личный кабинет'
         context = {
             'title': title,
