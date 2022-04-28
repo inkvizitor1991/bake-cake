@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 
-
 class RegisterUserForm(UserCreationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput)
     email = forms.EmailField(label='Email', widget=forms.EmailInput)

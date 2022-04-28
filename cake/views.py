@@ -1,12 +1,17 @@
 from django import views
+
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from annoying.functions import get_object_or_None
 
 from .forms import RegisterUserForm, LoginUserForm
+from .models import Client
 
 
 class BaseViews(views.View):
@@ -19,12 +24,25 @@ class BaseViews(views.View):
         return render(request, 'base.html', context)
 
 
-class OrderViews(views.View):
+class AccountViews(views.View):
 
     def get(self, request, *args, **kwargs):
+        user = get_object_or_404(User, username=request.user)
+        print(user.email)
+        # Client.objects.create(user=user, phone='+79819704333')
+        phone = get_object_or_None(Client, user__username=str(user))
+        # all = Client.objects.all()
+        print(phone)
+        # print(all)
+        # print(client.phone)
         title = 'Личный кабинет'
-        context = {'title': title}
-        return render(request, 'order.html', context)
+        context = {
+            'title': title,
+            'user': user,
+            'phone': phone,
+            'email': user.email,
+        }
+        return render(request, 'account.html', context)
 
 
 class RegistrationView(CreateView):
@@ -52,4 +70,4 @@ class LoginUserView(LoginView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('order')
+        return reverse_lazy('account')
