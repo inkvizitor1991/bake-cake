@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
+from cake import views
 from .views import (
     BaseViews, AccountViews,
     RegistrationView, LoginUserView
@@ -11,4 +12,6 @@ urlpatterns = [
     path('registration/', RegistrationView.as_view(), name='registration'),
     path('login/', LoginUserView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+
+    path('cake/', views.show_index_page, name="indexpage"),
 ]

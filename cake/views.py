@@ -65,3 +65,7 @@ class LoginUserView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('account')
+
+
+def show_index_page(request):
+    return render(request, 'index.html', context={})
