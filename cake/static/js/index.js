@@ -1,4 +1,5 @@
 let CakeComponentsData = JSON.parse(document.getElementById('cake-components-data').textContent);
+// axios.get('/cake_ingridients/').then(function (response){console.log(response.data)});
 
 Vue.createApp({
     name: "App",
@@ -153,6 +154,9 @@ Vue.createApp({
             })
             .catch(function (error) {
               console.log(error);
+            })
+            .then(function () {
+              window.location.replace("/payment/");
             })
         }
     },

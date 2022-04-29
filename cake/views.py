@@ -194,6 +194,7 @@ def register_order(request):
             password,
             first_name=first_name
         )
+
         client = Client.objects.create(
             user=user,
             phone=order_raw['Phone']

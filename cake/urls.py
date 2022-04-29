@@ -13,8 +13,9 @@ urlpatterns = [
     path('login/', LoginUserView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
 
-    path('cake/', views.show_index_page, name='indexpage'),
     path('payment/', views.payment, name='payment'),
-    path('cake/', views.show_index_page, name="indexpage"),
+
+    path('cake/', views.show_index_page, name='indexpage'),
+    path('cake_ingridients/', views.pass_cake_ingridients, name="cake_ingridients"),
     path('api/order/', views.register_order, name="api_order"),
 ]
