@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Levels(models.Model):
     """Количество уровней слоев торта. 1, 2, 3 и т.д."""
 
-    quantity = models.IntegerField('количество',  null=True, blank=True)
+    quantity = models.IntegerField('количество', null=True, blank=True)
     price = models.FloatField('цена')
 
     class Meta:
@@ -80,31 +80,31 @@ class Cake(models.Model):
     levels = models.ForeignKey(
         Levels,
         verbose_name='количество слоев',
-        related_name = 'cake',
+        related_name='cake',
         on_delete=models.PROTECT
     )
     form = models.ForeignKey(
         Form,
         verbose_name='форма',
-        related_name = 'cake',
+        related_name='cake',
         on_delete=models.PROTECT
     )
     topping = models.ForeignKey(
         Topping,
         verbose_name='топпинг',
-        related_name = 'cake',
+        related_name='cake',
         on_delete=models.PROTECT
     )
     berries = models.ForeignKey(
         Berries,
         verbose_name='ягода',
-        related_name = 'cake',
+        related_name='cake',
         on_delete=models.PROTECT
     )
     decor = models.ForeignKey(
         Decor,
         verbose_name='декор',
-        related_name = 'cake',
+        related_name='cake',
         on_delete=models.PROTECT
     )
     words = models.CharField('текст слов на торте', max_length=200)
@@ -120,8 +120,14 @@ class Cake(models.Model):
 class Client(models.Model):
     """Зарегистрированный клиент сервиса по заказу тортов."""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = PhoneNumberField("телефон", db_index=True)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE
+    )
+    phone = PhoneNumberField(
+        "телефон",
+        db_index=True
+    )
 
     class Meta:
         verbose_name = 'клиент'
@@ -134,9 +140,18 @@ class Client(models.Model):
 class Delivery(models.Model):
     """Доставка заказанного торта."""
 
-    address = models.TextField("Адрес")
-    deliver_at = models.DateTimeField('когда доставить',  null=True, blank=True)
-    comment = models.TextField('комментарий', blank=True)
+    address = models.TextField(
+        "Адрес"
+    )
+    deliver_at = models.DateTimeField(
+        'когда доставить',
+        null=True,
+        blank=True
+    )
+    comment = models.TextField(
+        'комментарий',
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'доставка'
@@ -149,11 +164,29 @@ class Delivery(models.Model):
 class Order(models.Model):
     """Заказ на торт."""
 
-    client = models.OneToOneField(Client, verbose_name='клиент', on_delete=models.PROTECT)
-    cake = models.OneToOneField(Cake, verbose_name='торт', on_delete=models.PROTECT)
-    price = models.FloatField('стоимость')
-    delivery = models.OneToOneField(Delivery, verbose_name='доставка', on_delete=models.PROTECT)
-    comment = models.TextField('комментарий', blank=True)
+    client = models.ForeignKey(
+        Client,
+        verbose_name='клиент',
+        related_name='orders',
+        on_delete=models.PROTECT
+    )
+    cake = models.OneToOneField(
+        Cake,
+        verbose_name='торт',
+        on_delete=models.PROTECT
+    )
+    price = models.FloatField(
+        'стоимость'
+    )
+    delivery = models.OneToOneField(
+        Delivery,
+        verbose_name='доставка',
+        on_delete=models.PROTECT
+    )
+    comment = models.TextField(
+        'комментарий',
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'заказ'
