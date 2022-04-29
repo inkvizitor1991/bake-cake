@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from annoying.functions import get_object_or_None
 
 from .forms import RegisterUserForm, LoginUserForm
-from .models import Client
+from .models import Client, Order
 
 
 class BaseViews(views.View):
@@ -28,14 +28,32 @@ class AccountViews(views.View):
 
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, username=request.user)
-        phone = get_object_or_None(Client, user__username=str(user))
+        client = get_object_or_None(Client, user__username=str(user))
         title = 'Личный кабинет'
         context = {
             'title': title,
             'user': user,
-            'phone': phone,
             'email': user.email,
+            'client': client,
         }
+        if client:
+            context = {
+                'title': title,
+                'user': user,
+                'email': user.email,
+                'client': client,
+                'phone': client,
+                'id': client.order.cake.id,
+                'levels': client.order.cake.levels.quantity,
+                'form': client.order.cake.form,
+                'topping': client.order.cake.topping,
+                'berries': client.order.cake.berries,
+                'decor': client.order.cake.decor,
+                'words': client.order.cake.words,
+                'price': client.order.price,
+                'delivery': client.order.delivery.deliver_at,
+            }
+
         return render(request, 'account.html', context)
 
 
