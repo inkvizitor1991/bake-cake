@@ -1,6 +1,11 @@
+import uuid
+import json
+import datetime
+
 from django import views
 
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
@@ -11,7 +16,7 @@ from django.contrib.auth.models import User
 from annoying.functions import get_object_or_None
 
 from .forms import RegisterUserForm, LoginUserForm
-from .models import Client, Levels, Form, Topping, Berries, Decor
+from .models import Levels, Form, Topping, Berries, Decor, Cake, Client, Delivery, Order
 
 
 class BaseViews(views.View):
@@ -109,3 +114,75 @@ def show_index_page(request):
     return render(request, 'index.html', context={
         'cake_components': cake_components_serialized
     })
+
+
+def register_order(request):
+    try:
+        order_raw = json.loads(request.body.decode())
+        print(order_raw)
+
+        levels = Levels.objects.get(quantity=order_raw['Levels'])
+        form = Form.objects.get(figure=order_raw['Form'])
+        topping = Topping.objects.get(name=order_raw['Topping'])
+        berries = Berries.objects.get(name=order_raw['Berries'])
+        decor = Decor.objects.get(name=order_raw['Decor'])
+
+        cake = Cake.objects.create(
+            levels=levels,
+            form=form,
+            topping=topping,
+            berries=berries,
+            decor=decor,
+            words=order_raw['Words'],
+        )
+
+        username = str(uuid.uuid4())
+        first_name = order_raw['Name']
+        client_email = order_raw['Email']
+        password = User.objects.make_random_password()
+
+        user = User.objects.create_user(
+            username,
+            client_email,
+            password,
+            first_name=first_name
+        )
+        client = Client.objects.create(
+            user=user,
+            phone=order_raw['Phone']
+        )
+
+        year, month, day = order_raw['Dates'].split('-')
+        hours, minutes = order_raw['Time'].split(':')
+        deliver_datetime = datetime.datetime(
+            int(year),
+            int(month),
+            int(day),
+            int(hours),
+            int(minutes)
+        )
+
+        delivery = Delivery.objects.create(
+            address=order_raw['Address'],
+            deliver_at=deliver_datetime,
+            comment=order_raw['DelivComments']
+        )
+
+        order = Order.objects.create(
+            client=client,
+            cake=cake,
+            price=order_raw['Cost'],
+            delivery=delivery,
+            comment=order_raw['Comments']
+        )
+
+        return JsonResponse({
+            'order': order_raw,
+            'status': 'ok'
+        })
+
+    except ValueError:
+        return JsonResponse({
+            'status': 'error',
+            'error': 'Order not created',
+        })
