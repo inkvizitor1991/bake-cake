@@ -99,15 +99,23 @@ class Cake(models.Model):
         Berries,
         verbose_name='ягода',
         related_name='cake',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
     )
     decor = models.ForeignKey(
         Decor,
         verbose_name='декор',
         related_name='cake',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
     )
-    words = models.CharField('текст слов на торте', max_length=200)
+    words = models.CharField(
+        'текст слов на торте',
+        max_length=200,
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'торт'

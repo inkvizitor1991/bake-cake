@@ -208,8 +208,16 @@ def register_order(request):
         levels = Levels.objects.get(quantity=order_raw['Levels'])
         form = Form.objects.get(figure=order_raw['Form'])
         topping = Topping.objects.get(name=order_raw['Topping'])
-        berries = Berries.objects.get(name=order_raw['Berries'])
-        decor = Decor.objects.get(name=order_raw['Decor'])
+
+        if order_raw['Berries'] == 'нет':
+            berries = None
+        else:
+            berries = Berries.objects.get(name=order_raw['Berries'])
+
+        if order_raw['Decor'] == 'нет':
+            decor = None
+        else:
+            decor = Decor.objects.get(name=order_raw['Decor'])
 
         cake = Cake.objects.create(
             levels=levels,
