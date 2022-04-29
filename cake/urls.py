@@ -15,4 +15,6 @@ urlpatterns = [
 
     path('cake/', views.show_index_page, name='indexpage'),
     path('payment/', views.payment, name='payment'),
+    path('cake/', views.show_index_page, name="indexpage"),
+    path('api/order/', views.register_order, name="api_order"),
 ]
