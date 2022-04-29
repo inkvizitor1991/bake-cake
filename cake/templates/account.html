@@ -50,7 +50,7 @@
 		</div>
 	</div>
 </div>
-			{% else %}
+{% else %}
 	{% for order in orders %}
 			<section class="my-2">
 				<span class="cake_blue lk__order d-flex" data-bs-toggle="modal" data-bs-target="#OrderModal{{ order.id }}">
@@ -70,9 +70,15 @@
 								<span class="cake_blue">Уровней: {{ order.cake.levels }}</span><br>
 								<span class="cake_blue">Форма: {{ order.cake.form }}</span><br>
 								<span class="cake_blue">Топинг: {{ order.cake.topping }}</span><br>
+								{% if order.cake.berries %}
 								<span class="cake_blue">Ягоды: {{ order.cake.berries }}</span><br>
+								{% endif %}
+								{% if order.cake.decor %}
 								<span class="cake_blue">Декор: {{ order.cake.decor }}</span><br>
+								{% endif %}
+								{% if order.cake.words %}
 								<span class="cake_blue">{{ order.cake.words }}</span><br>
+								{% endif %}
 								<span class="cake_pink">{{ order.price }}</span>
 							</div>
 							<div class="modal-footer d-flex justify-content-between">

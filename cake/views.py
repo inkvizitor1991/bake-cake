@@ -1,3 +1,10 @@
+import os
+import uuid
+import time
+import threading
+
+from yookassa import Configuration, Payment
+from dotenv import load_dotenv
 from django import views
 
 from django.http import HttpResponseRedirect
@@ -13,6 +20,7 @@ from annoying.functions import get_object_or_None
 from .forms import RegisterUserForm, LoginUserForm
 from .models import Client, Levels, Form, Topping, Berries, Decor
 
+load_dotenv()
 
 class BaseViews(views.View):
 
@@ -109,3 +117,45 @@ def show_index_page(request):
     return render(request, 'index.html', context={
         'cake_components': cake_components_serialized
     })
+
+
+
+def check_payment_until_confirm(payment_id, subscription_uuid):
+    while True:
+        payment = Payment.find_one(payment_id)
+        if payment.status == "canceled":
+            print('Не успешная оплата')
+            return
+        if payment.status == "succeeded":
+            print('Успешная оплата, сохраним данные')
+            return
+
+        time.sleep(5)
+
+
+def payment(request):
+    Configuration.account_id = os.getenv('YOOKASSA_ACCOUNT_ID')
+    Configuration.secret_key = os.getenv('YOOKASSA_SECRET_KEY')
+    subscription_uuid = uuid.uuid4()
+    payment = Payment.create({
+        "amount": {
+            "value": "100.00",
+            "currency": "RUB"
+        },
+        "confirmation": {
+            "type": "redirect",
+            "return_url": request.build_absolute_uri(reverse('account'))
+        },
+        "capture": True,
+        "description": "Заказ №1"
+    })
+
+    threading.Thread(
+        target=check_payment_until_confirm,
+        args=[payment.id, subscription_uuid],
+        daemon=True
+    ).start()
+    return redirect(payment.confirmation.confirmation_url)
+
+
+
