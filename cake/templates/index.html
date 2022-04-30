@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 
 <head>
@@ -28,10 +28,7 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
-
 <body>
-
-	<!-- ======= Header ======= -->
 	<header class="navbar navbar-expand-xl navbar-light fixed-top bg-white py-4">
 		<nav class="container">
 
@@ -46,17 +43,22 @@
 			<div class="collapse navbar-collapse justify-content-end" id="navbar">
 				<ul class="navbar-nav">
 					<li class="nav-item me-5">
-						<a class="nav-link fw-lighter cake_blue" href="#step3">Создать торт</a>
+						<a class="nav-link fw-lighter cake_blue" href="{% url 'indexpage' %}#step3">Создать торт</a>
 					</li>
 					<li class="nav-item me-5">
-						<a class="nav-link fw-lighter cake_blue" href="#step2">Каталог</a>
+						<a class="nav-link fw-lighter cake_blue" href="{% url 'indexpage' %}#step2">Каталог</a>
 					</li>
 					<li class="nav-item me-5">
-						<a class="nav-link fw-lighter cake_blue" href="#step4">Оплата и доставка</a>
+						<a class="nav-link fw-lighter cake_blue" href="{% url 'indexpage' %}#Contacts">Контакты</a>
 					</li>
-					<li class="nav-item me-5">
-						<a class="nav-link fw-lighter cake_blue" href="#Contacts">Контакты</a>
-					</li>
+					{% if request.user.is_authenticated %}
+        	<li class="nav-item me-5">
+          	<a class="nav-link fw-lighter cake_blue" href="{% url 'account' %}" role="button">Личный кабинет</a>
+        	</li>
+        	<li class="nav-item me-5">
+          	<a class="nav-link fw-lighter cake_blue" href="{% url 'logout' %}" role="button">Выйти</a>
+        	</li>
+        	{% endif %}
 					<li class="nav-item d-block d-xl-flex flex-column align-items-end me-5">
 						<small class="fw-lighter text-decoration-none fs_12 cake_blue">8 (495) 000-00-00</small>
 						<small class="fw-lighter text-decoration-none fs_12 cake_blue">Пн - Вс 10:00—20:00</small>
@@ -79,13 +81,10 @@
 				</ul>
 			</div>
 		</nav>
-
-	</header><!-- End Header -->
-
+	</header>
+{% block content %}
 	<main>
 		<div class="container mt-header">
-
-			<!-- ======= Registration modal window Section ======= -->
 			<aside class="modal fade" id="RegModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="RegModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content px-4 cake__modal">
@@ -142,12 +141,9 @@
 						</div>
 					</div>
 				</div>
-			</article><!-- End First screen Section-->
-
-			<!-- ======= Catalogue Section ======= -->
+			</article>
 			<article class="row pt-header d-flex justify-content-center" id="step2">
 				<h2 class="font_Gogh fs_40 cake_blue text-center mb-3">По любому поводу</h2>
-
 				<div class="col-12 col-sm-6 col-lg-4 d-flex flex-column align-items-center">
 					<div class="card border-0 cake__hover">
 						<a href="#" class="card-img-overlay"></a>
@@ -172,10 +168,7 @@
 				<div class="d-flex justify-content-center mt-2">
 					<button class="btn text-white rounded-pill shadow-none cake__button cake__bg_pink">Открыть каталог</button>
 				</div>
-			</article><!-- End Catalogue Section-->
-
-
-			<!-- ======= Service Section ======= -->
+			</article>
 			<article class="row pt-header text-center d-flex justify-content-center">
 				<h2 class="font_Gogh fs_40 cake_blue text-center mb-5">Оплата и доставка</h2>
 				<div class="col-12 col-sm-6 col-lg-4 d-flex flex-column align-items-center">
@@ -202,17 +195,11 @@
 				<div class="d-flex justify-content-center">
 					<a href="#step3" class="btn text-white rounded-pill mt-3 shadow-none cake__button cake__bg_pink">Оформить заказ</a>
 				</div>
-			</article><!-- End Service Section-->
-
-			<!-- ======= Order custom cake Section ======= -->
+			</article>
 			<article id="VueApp">
-
-				<!-- ======= Create custom cake Subsection ======= -->
 				<section class="row pt-header" id="step3">
 					<h2 class="font_Gogh fs_40 cake_blue text-center">Создать свой торт</h2>
-
 					<v-form :validation-schema="schema1" @submit="ToStep4">
-
 						<div class="d-flex justify-content-end align-items-center position-relative">
 							<span class="cake_pink position-absolute start-0 top-50">
 								<error-message name="lvls" class="from__alert"></error-message>
@@ -221,7 +208,6 @@
 							</span>
 							<span class="z-index-1 fs_40 cake_pink text-end mt-5" id="cost">{% verbatim %}{{ Cost }}{% endverbatim %}₽</span>
 						</div>
-
 						<div class="d-flex align-items-center flex-wrap mb-3">
 							<span class="me-3 fs_40 cake_blue">Количество уровней</span>
 							{% for cake_levels_quantity in cake_components.levels.quantity %}
@@ -229,7 +215,6 @@
 								<label for="num{{ forloop.counter }}" class="mx-2 px-3 py-1 cake_grey cake__label">{{cake_levels_quantity}}</label>
 							{% endfor %}
 						</div>
-
 						<div class="d-flex align-items-center flex-wrap mb-3">
 							<span class="me-3 fs_40 cake_blue">Форма</span>
 							{% for cake_figure in cake_components.forms.figures %}
@@ -237,7 +222,6 @@
 								<label for="form{{ forloop.counter }}" class="mx-2 px-3 py-1 cake_grey cake__label">{{cake_figure}}</label>
 							{% endfor %}
 						</div>
-
 						<div class="d-flex align-items-center flex-wrap mb-3">
 							<span class="me-3 fs_40 cake_blue">Топпинг</span>
 							<v-field v-model="Topping" type="radio" name="topping" id="topping1" value="1" class="d-none cake__input"></v-field>
@@ -247,9 +231,7 @@
 								<label for="topping{{ forloop.counter|add:"1" }}" class="mx-2 px-3 py-1 cake_grey cake__label">{{cake_topping}}</label>
 							{% endfor %}
 						</div>
-
 						<h1 class="me-3 fs_40 cake_pink mb-3 mt-5">Дополнительно</h1>
-
 						<div class="d-flex align-items-center flex-wrap mb-3">
 							<span class="me-3 fs_40 cake_blue">Ягоды</span>
 							{% for cake_berry in cake_components.berries.names %}
@@ -257,15 +239,12 @@
 								<label for="berries{{ forloop.counter }}" class="mx-2 px-3 py-1 cake_grey cake__label">{{cake_berry}}</label>
 							{% endfor %}
 						</div>
-
 						<div class="d-flex align-items-center flex-wrap mb-3">
 							<span class="me-3 fs_40 cake_blue">Декор</span>
 							{% for cake_decor in cake_components.decors.names %}
 								<v-field v-model="Decor" type="radio" name="decor" id="decor{{ forloop.counter }}" value="{{ forloop.counter }}" class="d-none cake__input"></v-field>
 								<label for="decor{{ forloop.counter }}" class="mx-2 px-3 py-1 cake_grey cake__label">{{cake_decor}}</label>
-							{% endfor %}
-						</div>
-
+							{% endfor %}</div>
 						<div class="row mb-3">
 							<div class="col-5 col-md-4 col-lg-3">
 								<label class="me-3 fs_40 cake_blue" for="words">Надпись</label>
@@ -274,20 +253,16 @@
 								<input v-model="Words" :class="Words ? 'cake__border_blue': ''" type="text" name="words" id="words" placeholder="Например: «С днем рождения!»..." class="form-control cake__textinput">
 							</div>
 						</div>
-
 						<div>
 							<label for="comment" class="cake_blue">Комментарий к заказу</label>
 							<textarea v-model="Comments" :class="Comments ? 'cake__border_blue': ''" name="comment" id="comment" rows="3" class="form-control mt-2 cake__textinput" style="resize: none"></textarea>
 						</div>
-
 						<div class="d-flex justify-content-end">
 							<button type="submit" class="btn text-white rounded-pill mt-3 shadow-none cake__button cake__bg_pink">Подтвердить</button>
 							<a href="#step4" ref="ToStep4" class="d-none"></a>
 						</div>
-
 					</v-form>
-				</section><!-- End Create custom cake Subsection-->
-
+				</section>
 				<section class="row pt-header" id="step4" v-if="Designed">
 					<v-form :validation-schema="schema2" @submit="SubmitOrder">
 						<div class="col">
@@ -318,7 +293,6 @@
 										<error-message name="email_format" class="position-absolute bottom-0 cake_pink fs_12"></error-message>
 									</div>
 								</div>
-
 								{% verbatim myblock %}
 								<div class="col-12 col-lg-4 d-flex justify-content-center justify-content-lg-end">
 									<div class="cake__card p-4 position-relative cake_grey">
@@ -335,9 +309,7 @@
 									</div>
 								</div>
 								{% endverbatim myblock %}
-
 							</div>
-
 							<div class="d-flex flex-column position-relative pb-4">
 								<h2 class="fs_40 cake_pink">Данные для доставки</h2>
 								<span class="cake_pink mt-2 position-absolute bottom-0">
@@ -346,7 +318,6 @@
 									<error-message name="time" class="from__alert"></error-message>
 								</span>
 							</div>
-
 							<div class="row">
 								<div class="col-6 col-lg-4 d-flex flex-column">
 									<label for="address" class="my-1 fs_40 cake_blue">Адрес</label>
@@ -375,13 +346,9 @@
 					</v-form>
 				</section>
 			</article><!-- End Order custom cake Section-->
-
 		</div>
 	</main>
-
-	<!-- ======= Footer ======= -->
 	<footer class="mt-5 cake__bg_blue" id="Contacts">
-
 		<div class="container my-5 py-5">
 			<div class="row">
 				<div class="col-4 col-xl-2 d-flex flex-column">
@@ -412,7 +379,6 @@
 				</div>
 			</div>
 		</div>
-
 	</footer><!-- End Footer -->
 
 	<!-- Vendor JS Files -->
@@ -424,7 +390,6 @@
 	<!-- Custom JS Files -->
 	<script src="{% static 'js/index.js' %}"></script>
 	<script src="{% static 'js/registration.js' %}"></script>
-
+{% endblock content %}
 </body>
-
 </html>

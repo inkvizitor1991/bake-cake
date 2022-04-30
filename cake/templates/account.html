@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 {% load static %}
 {% block content %}
 <div class="container mt-header mb-5">
@@ -43,7 +43,7 @@
 			<h2 class="fs_40 cake_pink mt-5">Мои заказы</h2>
 			{% if not client %}
 			<span class="cake_grey">У вас еще нет заказов.</span>
-			<p class="cake_grey">Вы можете добавить торт из <a href="{% url 'base' %}#step2" class="text-decoration-none cake_pink">Каталога</a> или <a href="{% url 'base' %}#step3" class="text-decoration-none cake_pink">Создать свой</a>.</p>
+			<p class="cake_grey">Вы можете добавить торт из <a href="{% url 'indexpage' %}#step2" class="text-decoration-none cake_pink">Каталога</a> или <a href="{% url 'indexpage' %}#step3" class="text-decoration-none cake_pink">Создать свой</a>.</p>
 			<span class="cake_grey">Есть вопросы?</span>
 			<span class="cake_grey">Воспользуйтесь нашим <a href="https://vk.com/devmanorg" class="text-decoration-none cake_pink">чат-ботом</a>.</span>
 			<button class="btn text-white rounded-pill align-self-end px-5 mt-3 shadow-none cake__button cake__bg_pink">Выйти</button>
@@ -82,7 +82,7 @@
 								<span class="cake_pink">{{ order.price }}</span>
 							</div>
 							<div class="modal-footer d-flex justify-content-between">
-								<span class="cake_blue">Статус: В доставке</span>
+								<span class="cake_blue">Статус: Оплачено</span>
 								<span class="cake_blue">Время доставки: {{ order.delivery.deliver_at }}</span>
 							</div>
 						</div>
