@@ -26,6 +26,8 @@ from .models import Levels, Form, Topping, Berries, Decor, Cake, Client, Deliver
 
 load_dotenv()
 
+orders = {}
+
 class BaseViews(views.View):
 
     def get(self, request, *args, **kwargs):
@@ -40,18 +42,19 @@ class AccountViews(views.View):
 
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, username=request.user)
+        print(user)
         client = get_object_or_None(Client, user__username=str(user))
         title = 'Личный кабинет'
         context = {
             'title': title,
-            'user': user,
+            'user': user.first_name,
             'email': user.email,
             'client': client,
         }
         if client:
             context = {
                 'title': title,
-                'user': user,
+                'user': user.first_name,
                 'email': user.email,
                 'client': client,
                 'orders': client.orders.all()
@@ -194,6 +197,8 @@ def register_order(request):
             password,
             first_name=first_name
         )
+        if user is not None:
+            login(request, user)
         client = Client.objects.create(
             user=user,
             phone=order_raw['Phone']
