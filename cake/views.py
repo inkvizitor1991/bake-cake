@@ -1,4 +1,3 @@
-import os
 import uuid
 import time
 import threading
@@ -6,25 +5,24 @@ import json
 import datetime
 
 from yookassa import Configuration, Payment
-from dotenv import load_dotenv
 
 from django import views
 
 from django.http import JsonResponse
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from annoying.functions import get_object_or_None
 
+from bake_cake.settings import YOOKASSA_SECRET_KEY, YOOKASSA_ACCOUNT_ID
 from .models import (
     Levels, Form, Topping,
     Berries, Decor, Cake,
     Client, Delivery, Order
 )
 
-load_dotenv()
 
 user_order = {}
 
@@ -36,7 +34,6 @@ class AccountViews(views.View):
         client = get_object_or_None(Client, user__username=str(user))
         title = 'Личный кабинет'
         status = user_order.get('status')
-        print(status)
         context = {
             'title': title,
             'user': user.first_name,
@@ -106,8 +103,8 @@ def check_payment_until_confirm(payment_id, subscription_uuid):
 
 
 def payment(request):
-    Configuration.account_id = os.getenv('YOOKASSA_ACCOUNT_ID')
-    Configuration.secret_key = os.getenv('YOOKASSA_SECRET_KEY')
+    Configuration.account_id = YOOKASSA_ACCOUNT_ID
+    Configuration.secret_key = YOOKASSA_SECRET_KEY
     subscription_uuid = uuid.uuid4()
     payment = Payment.create({
         "amount": {
@@ -139,24 +136,24 @@ def pass_cake_ingridients(request):
 
     cake_components_serialized = {
         'levels': {
-            'quantity': [level.quantity for level in levels],
-            'prices': [level.price for level in levels]
+            'quantity': levels.values_list('quantity', flat=True),
+            'prices': levels.values_list('prices', flat=True)
         },
         'forms': {
-            'figures': [form.figure for form in forms],
-            'prices': [form.price for form in forms]
+            'figures': forms.values_list('figures', flat=True),
+            'prices': forms.values_list('prices', flat=True)
         },
         'toppings': {
-            'names': [topping.name for topping in toppings],
-            'prices': [topping.price for topping in toppings]
+            'names': toppings.values_list('names', flat=True),
+            'prices': toppings.values_list('prices', flat=True)
         },
         'berries': {
-            'names': [berry.name for berry in berries],
-            'prices': [berry.price for berry in berries]
+            'names': berries.values_list('names', flat=True),
+            'prices': berries.values_list('prices', flat=True)
         },
         'decors': {
-            'names': [decor.name for decor in decors],
-            'prices': [decor.price for decor in decors]
+            'names': decors.values_list('names', flat=True),
+            'prices': decors.values_list('prices', flat=True)
         }
     }
 

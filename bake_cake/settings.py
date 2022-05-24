@@ -7,14 +7,13 @@ env.read_env()
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
 SECRET_KEY = env('SECRET_KEY', 'django-insecure-0cgwy&zkol1@f9e5s1(wxu4_hgq1ga8ury)_dqc#z06(cn=n)2')
-
 
 DEBUG = env.bool('DEBUG', True)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1', 'localhost'])
 
+YOOKASSA_ACCOUNT_ID = os.environ.get('YOOKASSA_ACCOUNT_ID')
+YOOKASSA_SECRET_KEY = os.environ.get('YOOKASSA_SECRET_KEY')
 
 
 INSTALLED_APPS = [

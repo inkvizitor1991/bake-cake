@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -64,7 +65,7 @@ class Decor(models.Model):
     """Декор из продуктов используемый как украшение при приготовлении торта. Фисташки, безе и т.д."""
 
     name = models.CharField('название', max_length=200)
-    price = models.FloatField('цена')
+    price = models.FloatField('цена', validators=[MinValueValidator(0)])
 
     class Meta:
         verbose_name = 'декор'
@@ -148,8 +149,8 @@ class Client(models.Model):
 class Delivery(models.Model):
     """Доставка заказанного торта."""
 
-    address = models.TextField(
-        "Адрес"
+    address = models.CharField(
+        "Адрес", max_length=200
     )
     deliver_at = models.DateTimeField(
         'когда доставить',
