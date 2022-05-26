@@ -16,7 +16,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from annoying.functions import get_object_or_None
 
-from bake_cake.settings import YOOKASSA_SECRET_KEY, YOOKASSA_ACCOUNT_ID
+from django.conf import settings
 from .models import (
     Levels, Form, Topping,
     Berries, Decor, Cake,
@@ -103,8 +103,8 @@ def check_payment_until_confirm(payment_id, subscription_uuid):
 
 
 def payment(request):
-    Configuration.account_id = YOOKASSA_ACCOUNT_ID
-    Configuration.secret_key = YOOKASSA_SECRET_KEY
+    Configuration.account_id = settings.YOOKASSA_ACCOUNT_ID
+    Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
     subscription_uuid = uuid.uuid4()
     payment = Payment.create({
         "amount": {
